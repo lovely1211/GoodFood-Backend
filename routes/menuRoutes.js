@@ -3,21 +3,23 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const multer = require('multer');
+const cloudinary = require('../config/cloudinary');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const router = express.Router();
 const authMiddleware =require('../middleware/sellerMiddleware');
 const MenuItem = require('../models/menu');
 const LikedItem = require('../models/likedItem');
 
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
+// Configure multer to use Cloudinary
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'goodfood_images', 
+    allowed_formats: ['jpg', 'jpeg', 'png'],
   },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
 });
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 
 // Add Menu Item
 router.post('/', authMiddleware, upload.single('image'), async (req, res) => {
@@ -26,7 +28,7 @@ router.post('/', authMiddleware, upload.single('image'), async (req, res) => {
     category: req.body.category,
     price: req.body.price,
     description: req.body.description,
-    image: req.file ? req.file.filename : null,
+    image: req.file ? req.file.path : null,
     sellerId: req.user._id ,
     sellerName: req.user.name,
   });
