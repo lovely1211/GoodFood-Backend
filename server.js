@@ -23,7 +23,7 @@ app.use(session({
   secret: process.env.JWT_SECRET_KEY,  
   resave: false,
   saveUninitialized: true,
-  // cookie: { secure: false } // Ensure this is set correctly for production
+  // cookie: { secure: false }
 }));
 
 // Connect to MongoDB
@@ -34,10 +34,9 @@ app.use(bodyParser.json());
 
 // CORS configuration
 app.use(cors({
-  // origin: 'https://goodfood-28z5.onrender.com',
-  origin: 'http://localhost:3000',
+  origin: 'https://goodfoodback-1.onrender.com',
   methods: 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
-  credentials: true // Allow credentials like cookies and sessions
+  credentials: true 
 }));
 
 // Handle preflight requests for all routes
