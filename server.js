@@ -34,7 +34,7 @@ app.use(bodyParser.json());
 
 // CORS configuration
 app.use(cors({
-  origin: 'https://good-food-front.vercel.app',
+  origin: 'https://GoodFood-Frontend.vercel.app',
   methods: 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
   credentials: true 
 }));
