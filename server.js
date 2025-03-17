@@ -42,9 +42,6 @@ app.use(cors({
 // Handle preflight requests for all routes
 app.options('*', cors());
 
-// Serve static files (for images, etc.)
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
 // API Routes
 app.use('/api/service', serviceRoutes);
 app.use('/api/buyerAuth', buyerRoutes);
